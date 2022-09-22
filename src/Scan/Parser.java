@@ -16,17 +16,20 @@ public class Parser
 
 	public void parseProgram()
 	{
-		accept(START);
 		parseBlock();
-		accept(END);
 		if(currentTerminal.kind != EOT)
 			System.out.println("Tokens found after end of program");
 	}
 
 	private void parseBlock()
 	{
-		parseDeclarations();
-		parseStatements();
+		accept(START);
+		while(currentTerminal.kind != END)
+		{
+			parseDeclarations();
+			parseStatements();
+		}
+		accept(END);
 	}
 
 	private void parseDeclarations()
@@ -45,17 +48,30 @@ public class Parser
 			case INT:
 				accept(INT);
 				accept(IDENTIFIER);
+				if(currentTerminal.kind == RIGHTSQUARE)
+					break;
 				if(currentTerminal.kind != SEMICOLON)
 					parseOneStatement();
-				accept(SEMICOLON);
+				else
+					accept(SEMICOLON);
 				break;
 
 			case ARRAY:
 				accept(ARRAY);
 				accept(IDENTIFIER);
+				accept(LEFTARROW);
+				if(currentTerminal.kind == INT)
+					accept(INT);
+				if(currentTerminal.kind == BOOL)
+					accept(BOOL);
+				accept(RIGHTARROW);
+				accept(LEFTSQUARE);
+				accept(INTEGERLITERAL);
+				accept(RIGHTSQUARE);
 				if(currentTerminal.kind != SEMICOLON)
 					parseOneStatement();
-				accept(SEMICOLON);
+				else
+					accept(SEMICOLON);
 				break;
 
 			case BOOL:
@@ -63,7 +79,8 @@ public class Parser
 				accept(IDENTIFIER);
 				if(currentTerminal.kind != SEMICOLON)
 					parseOneStatement();
-				accept(SEMICOLON);
+				else
+					accept(SEMICOLON);
 				break;
 
 			case DEFINE:
@@ -81,27 +98,18 @@ public class Parser
 				parseDeclarations();
 				accept(RIGHTSQUARE);
 				accept(LEFTARROW);
-				parseBlock();
+				parseStatements();
 				if(currentTerminal.kind == RETURN)
+				{
 					accept(RETURN);
-				parseExpression();
+					parseExpression();
+				}
 				accept(RIGHTARROW);
 				break;
 
 			default:
 				System.out.println("Declaration or statement expected.");
 				break;
-		}
-	}
-
-	private void parseIdList()
-	{
-		accept(IDENTIFIER);
-
-		while(currentTerminal.kind == COMMA)
-		{
-			accept(COMMA);
-			accept(IDENTIFIER);
 		}
 	}
 
@@ -124,6 +132,7 @@ public class Parser
 			case IDENTIFIER:
 			case INTEGERLITERAL:
 			case OPERATOR:
+				parseExpression();
 				break;
 			case IF:
 				accept(IF);
@@ -131,14 +140,14 @@ public class Parser
 				parseExpression();
 				accept(RIGHTSQUARE);
 				accept(LEFTARROW);
-				parseBlock();
+				parseStatements();
 				accept(RIGHTARROW);
 
 				if(currentTerminal.kind == ELSE)
 				{
 					accept(ELSE);
 					accept(LEFTARROW);
-					parseBlock();
+					parseStatements();
 					accept(RIGHTARROW);
 				}
 				break;
@@ -149,7 +158,7 @@ public class Parser
 				parseExpression();
 				accept(RIGHTSQUARE);
 				accept(LEFTARROW);
-				parseBlock();
+				parseStatements();
 				accept(RIGHTARROW);
 				break;
 
@@ -190,6 +199,8 @@ public class Parser
 			accept(OPERATOR);
 			parsePrimary();
 		}
+		if(currentTerminal.kind != COMMA && currentTerminal.kind != RIGHTPARAN && currentTerminal.kind != RIGHTSQUARE)
+			accept(SEMICOLON);
 	}
 
 	private void parsePrimary()
@@ -218,7 +229,10 @@ public class Parser
 				if(currentTerminal.kind == LEFTSQUARE)
 				{
 					accept(LEFTSQUARE);
-					accept(INTEGERLITERAL);
+					if(currentTerminal.kind == INTEGERLITERAL)
+						accept(INTEGERLITERAL);
+					if(currentTerminal.kind == IDENTIFIER)
+						accept(IDENTIFIER);
 					accept(RIGHTSQUARE);
 				}
 				break;
@@ -230,6 +244,16 @@ public class Parser
 			case OPERATOR:
 				accept(OPERATOR);
 				parsePrimary();
+				break;
+
+			case LEFTPARAN:
+				accept( LEFTPARAN );
+				parseExpressionList();
+				accept( RIGHTPARAN );
+				break;
+
+			case VALUE:
+				accept(VALUE);
 				break;
 
 			default:
@@ -251,7 +275,10 @@ public class Parser
 	private void accept(TokenKind expected)
 	{
 		if(currentTerminal.kind == expected)
+		{
+			System.out.println(expected + "   " + currentTerminal.spelling);
 			currentTerminal = scan.scan();
+		}
 		else
 			System.out.println("Expected token of kind " + expected);
 	}

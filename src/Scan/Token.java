@@ -15,10 +15,23 @@ public class Token
 		this.kind = kind;
 		this.spelling = spelling;
 			for( TokenKind tk: KEYWORDS )
-				if( spelling.equals( tk.getSpelling() ) ) {
+			{
+				if(spelling.equals(tk.getSpelling()))
+				{
 					this.kind = tk;
 					break;
 				}
+				if(containsOperator(spelling,COMPOPS))
+				{
+					this.kind = OPERATOR;
+					break;
+				}
+				if(containsOperator(spelling,BOOLOPS))
+				{
+					this.kind = VALUE;
+					break;
+				}
+			}
 	}
 	
 	
@@ -45,6 +58,14 @@ public class Token
 		else
 			return false;
 	}
+
+	public boolean isCompOperator()
+	{
+		if( kind == OPERATOR )
+			return containsOperator( spelling, COMPOPS );
+		else
+			return false;
+	}
 	
 	
 	private boolean containsOperator(String spelling, String OPS[])
@@ -56,7 +77,7 @@ public class Token
 		return false;
 	}
 	
-	private static final TokenKind[] KEYWORDS = { START, END, DEFINE, RETURN, NULL, INT, ARRAY, BOOL, IF, ELSE, WHILE, PRINT, INPUT, NOT, EQUAL, OVER, UNDER };
+	private static final TokenKind[] KEYWORDS = { START, END, DEFINE, RETURN, NULL, INT, ARRAY, BOOL, IF, ELSE, WHILE, PRINT, INPUT, NOT, EQUAL, OVER, UNDER, VALUE };
 	
 	
 	private static final String ASSIGNOPS[] =
@@ -70,6 +91,14 @@ public class Token
 		"+",
 		"-",
 	};
+
+	private static final String BOOLOPS[] =
+			{
+					"true",
+					"false",
+					"TRUE",
+					"FALSE"
+			};
 
 	
 	private static final String MULOPS[] =

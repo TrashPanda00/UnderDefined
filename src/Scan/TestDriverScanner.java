@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class TestDriverScanner
 {
-	private static final String EXAMPLES_DIR = "c:\\usr\\bogda\\Desktop\\Examples";
+	private static final String EXAMPLES_DIR = "C:\\Users\\bogda\\Desktop\\Examples\\example.txt";
 	
 	
 	public static void main( String args[])

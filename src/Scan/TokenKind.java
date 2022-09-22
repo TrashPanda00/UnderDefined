@@ -5,6 +5,7 @@ public enum TokenKind
 	IDENTIFIER,
 	INTEGERLITERAL,
 	OPERATOR,
+	VALUE,
 	
 	START( "START" ),
 	END( "END" ),
