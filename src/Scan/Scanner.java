@@ -64,44 +64,6 @@ public class Scanner
 
 	private TokenKind scanToken()
 	{
-		switch(currentChar)
-		{
-			case 'N':
-				takeIt();
-				if(currentChar == 'O')
-				{
-					takeIt();
-					if(currentChar == 'T')
-					{
-						takeIt();
-						return OPERATOR;
-					}
-				}
-
-			case 'O':
-				takeIt();
-				if(currentChar == 'V')
-				{
-					takeIt();
-					return OPERATOR;
-				}
-
-			case 'U':
-				takeIt();
-				if(currentChar == 'N')
-				{
-					takeIt();
-					return OPERATOR;
-				}
-
-			case 'E':
-				takeIt();
-				if(currentChar == 'Q')
-				{
-					takeIt();
-					return OPERATOR;
-				}
-		}
 		if(isLetter(currentChar))
 		{
 			takeIt();

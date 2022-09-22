@@ -14,15 +14,6 @@ public class Token
 	{
 		this.kind = kind;
 		this.spelling = spelling;
-		
-		if(kind == IDENTIFIER )
-/*
-			for( byte i = 0; i < SPELLINGS.length; ++i )
-				if( spelling.equals( SPELLINGS[i] ) ) {
-					this.kind = i;
-					break;
-				}
-*/
 			for( TokenKind tk: KEYWORDS )
 				if( spelling.equals( tk.getSpelling() ) ) {
 					this.kind = tk;
@@ -65,7 +56,7 @@ public class Token
 		return false;
 	}
 	
-	private static final TokenKind[] KEYWORDS = { START, END, DEFINE, RETURN, NULL, INT, ARRAY, BOOL, IF, WHILE, PRINT, INPUT };
+	private static final TokenKind[] KEYWORDS = { START, END, DEFINE, RETURN, NULL, INT, ARRAY, BOOL, IF, ELSE, WHILE, PRINT, INPUT, NOT, EQUAL, OVER, UNDER };
 	
 	
 	private static final String ASSIGNOPS[] =
