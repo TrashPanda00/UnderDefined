@@ -212,13 +212,13 @@ public class Parser
 
 					accept(RIGHTARROW);
 					accept(LEFTSQUARE);
-					parseExpressionList();
+					accept(INTEGERLITERAL);
 					accept(RIGHTSQUARE);
 				}
 				if(currentTerminal.kind == LEFTSQUARE)
 				{
 					accept(LEFTSQUARE);
-					parseExpressionList();
+					accept(INTEGERLITERAL);
 					accept(RIGHTSQUARE);
 				}
 				break;
