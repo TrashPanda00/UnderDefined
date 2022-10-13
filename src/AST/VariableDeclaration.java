@@ -11,31 +11,31 @@ package AST;
 public class VariableDeclaration
 	extends Declaration
 {
-	public Type type1;
-	public Type type2;
+	public TypeClass typeClass1;
+	public TypeClass typeClass2;
 	public IntegerLiteral lit;
 	public Identifier id;
 	public Statements stat;
 	public Statement statSingle;
 
-	public VariableDeclaration( Type type1, Identifier id)
+	public VariableDeclaration(TypeClass typeClass1, Identifier id)
 	{
-		this.type1 = type1;
-		this.type2 = type2;
+		this.typeClass1 = typeClass1;
+		this.typeClass2 = typeClass2;
 		this.id = id;
 	}
 
-	public VariableDeclaration( Type type1, Identifier id, Statement stat )
+	public VariableDeclaration(TypeClass typeClass1, Identifier id, Statement stat)
 	{
-		this.type1 = type1;
+		this.typeClass1 = typeClass1;
 		this.id = id;
 		this.statSingle = stat;
 	}
 
-	public VariableDeclaration( Type type1, Type type2, IntegerLiteral lit, Identifier id, Statements stat )
+	public VariableDeclaration(TypeClass typeClass1, TypeClass typeClass2, IntegerLiteral lit, Identifier id, Statements stat)
 	{
-		this.type1 = type1;
-		this.type2 = type2;
+		this.typeClass1 = typeClass1;
+		this.typeClass2 = typeClass2;
 		this.lit = lit;
 		this.id = id;
 		this.stat = stat;

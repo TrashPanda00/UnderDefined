@@ -2,20 +2,20 @@ package AST;
 
 public class ArrayExpression extends Expression
 {
-	Identifier id1;
-	Identifier id2;
-	Type type;
-	IntegerLiteral lit;
+	public Identifier id1;
+	public Identifier id2;
+	public TypeClass typeClass;
+	public IntegerLiteral lit;
 
 	public ArrayExpression(Identifier id1)
 	{
 		this.id1 = id1;
 	}
 
-	public ArrayExpression(Identifier id1, Type type, IntegerLiteral lit)
+	public ArrayExpression(Identifier id1, TypeClass typeClass, IntegerLiteral lit)
 	{
 		this.id1 = id1;
-		this.type = type;
+		this.typeClass = typeClass;
 		this.lit = lit;
 	}
 

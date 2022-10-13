@@ -17,6 +17,8 @@ public class TestDriverParser
 			Scanner s = new Scanner( in );
 			ParserAST p = new ParserAST(s );
 			AST ast = p.parseProgram();
+
+			new ASTViewer(ast);
 		}
 	}
 }

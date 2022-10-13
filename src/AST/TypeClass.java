@@ -1,8 +1,8 @@
 package AST;
 
-public class Type
+public class TypeClass extends AST
 {
-	TypeName type;
+	public TypeName type;
 
 	public enum TypeName {
 		INT,
@@ -12,7 +12,7 @@ public class Type
 		ERROR
 	}
 
-	public Type(TypeName name)
+	public TypeClass(TypeName name)
 	{
 		type = name;
 	}

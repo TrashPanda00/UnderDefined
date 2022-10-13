@@ -12,11 +12,11 @@ public class InputStatement
 		extends Statement
 {
 	public Identifier idf;
-	public Type type;
+	public TypeClass typeClass;
 
-	public InputStatement(Type type, Identifier idf)
+	public InputStatement(TypeClass typeClass, Identifier idf)
 	{
 		this.idf = idf;
-		this.type = type;
+		this.typeClass = typeClass;
 	}
 }
