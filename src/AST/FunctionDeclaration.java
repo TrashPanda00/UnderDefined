@@ -37,4 +37,8 @@ public class FunctionDeclaration
 		this.params = params;
 		this.block = block;
 	}
+	public Object visit( Visitor v, Object arg )
+	{
+		return v.visitFunctionDeclaration( this, arg );
+	}
 }
