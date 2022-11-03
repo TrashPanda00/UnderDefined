@@ -118,7 +118,7 @@ public class Encoder
 		Address adr = (Address) arg;
 		int size = adr.displacement - startDisplacement;
 			
-		return new Integer( size );
+		return new IntegerLiteral(  );
 	}
 
 	@Override
@@ -209,7 +209,11 @@ public class Encoder
 	}
 
 
+    @Override
+    public Object visitArrayExpression(ArrayExpression a,Object arg){
 
+		a.visit(this,new Boolean(true));
+	};
 
 	@Override
 	public Object visitInputStatement(InputStatement s, Object arg)
