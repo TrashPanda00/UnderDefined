@@ -12,27 +12,27 @@ package AST;
 public class FunctionDeclaration
 	extends Declaration
 {
-	public Type typeClass;
+	public TypeValue typeValueClass;
 	public Identifier name;
 	public Declarations params;
 	public Block block;
 	public Expression retExp;
 	
 	
-	public FunctionDeclaration(Type typeClass, Identifier name, Declarations params,
+	public FunctionDeclaration(TypeValue typeValueClass, Identifier name, Declarations params,
 	                           Block block, Expression retExp )
 	{
-		this.typeClass = typeClass;
+		this.typeValueClass = typeValueClass;
 		this.name = name;
 		this.params = params;
 		this.block = block;
 		this.retExp = retExp;
 	}
 
-	public FunctionDeclaration(Type typeClass, Identifier name, Declarations params,
+	public FunctionDeclaration(TypeValue typeValueClass, Identifier name, Declarations params,
 	                           Block block)
 	{
-		this.typeClass = typeClass;
+		this.typeValueClass = typeValueClass;
 		this.name = name;
 		this.params = params;
 		this.block = block;

@@ -75,42 +75,42 @@ public class ParserAST
 		}
 	}
 
-	private Type parseType()
+	private TypeValue parseType()
 	{
 		if(currentTerminal.kind == ARRAY)
 		{
-			Type typeClass = new Type(Type.TypeName.ARR);
+			TypeValue typeValueClass = new TypeValue(TypeValue.TypeName.ARR);
 			currentTerminal = scan.scan();
-			System.out.println(typeClass.type);
-			return typeClass;
+			System.out.println(typeValueClass.type);
+			return typeValueClass;
 		}
 		else if(currentTerminal.kind == INT)
 		{
-			Type typeClass = new Type(Type.TypeName.INT);
+			TypeValue typeValueClass = new TypeValue(TypeValue.TypeName.INT);
 			currentTerminal = scan.scan();
-			System.out.println(typeClass.type);
-			return typeClass;
+			System.out.println(typeValueClass.type);
+			return typeValueClass;
 		}
 		else if(currentTerminal.kind == BOOL)
 		{
-			Type typeClass = new Type(Type.TypeName.BOOL);
+			TypeValue typeValueClass = new TypeValue(TypeValue.TypeName.BOOL);
 			currentTerminal = scan.scan();
-			System.out.println(typeClass.type);
-			return typeClass;
+			System.out.println(typeValueClass.type);
+			return typeValueClass;
 		}
 		else if(currentTerminal.kind == NULL)
 		{
-			Type typeClass = new Type(Type.TypeName.NULL);
+			TypeValue typeValueClass = new TypeValue(TypeValue.TypeName.NULL);
 			currentTerminal = scan.scan();
 
-			System.out.println(typeClass.type);
-			return typeClass;
+			System.out.println(typeValueClass.type);
+			return typeValueClass;
 		}
 		else
 		{
 			System.out.println("Type expected");
 
-			return new Type(Type.TypeName.ERROR);
+			return new TypeValue(TypeValue.TypeName.ERROR);
 		}
 	}
 
@@ -150,8 +150,8 @@ public class ParserAST
 	{
 		Statement stat = null;
 		IntegerLiteral lit;
-		Type typeClass1;
-		Type typeClass2;
+		TypeValue typeValueClass1;
+		TypeValue typeValueClass2;
 		Identifier id;
 		Expression retExp;
 		Block block;
@@ -160,7 +160,7 @@ public class ParserAST
 			case BOOL:
 			case INT:
 				//accept(INT);
-				typeClass1 = parseType();
+				typeValueClass1 = parseType();
 				id = parseIdentifier();
 				//accept(IDENTIFIER);
 				//				if(currentTerminal.kind == RIGHTSQUARE)
@@ -170,24 +170,24 @@ public class ParserAST
 				else
 					accept(SEMICOLON);
 				if(stat == null)
-					return new VariableDeclaration(typeClass1, id);
+					return new VariableDeclaration(typeValueClass1, id);
 				else
-					return new VariableDeclaration(typeClass1, id, stat);
+					return new VariableDeclaration(typeValueClass1, id, stat);
 
 			case ARRAY:
 				//accept(ARRAY);
-				typeClass1 = parseType();
+				typeValueClass1 = parseType();
 				//accept(IDENTIFIER);
 				id = parseIdentifier();
 				accept(LEFTARROW);
 				if(currentTerminal.kind == INT)
 					//accept(INT);
-					typeClass2 = parseType();
+					typeValueClass2 = parseType();
 				else if(currentTerminal.kind == BOOL)
 					//accept(BOOL);
-					typeClass2 = parseType();
+					typeValueClass2 = parseType();
 				else
-					typeClass2 = new Type(Type.TypeName.ERROR);
+					typeValueClass2 = new TypeValue(TypeValue.TypeName.ERROR);
 				accept(RIGHTARROW);
 				accept(LEFTSQUARE);
 				//accept(INTEGERLITERAL);
@@ -205,9 +205,9 @@ public class ParserAST
 				else
 					accept(SEMICOLON);
 				if(stat == null)
-					return new VariableDeclaration(typeClass1, id);
+					return new VariableDeclaration(typeValueClass1, id);
 				else
-					return new VariableDeclaration(typeClass1, typeClass2, lit, id, stat2);
+					return new VariableDeclaration(typeValueClass1, typeValueClass2, lit, id, stat2);
 
 				//			case BOOL:
 				//				//accept(BOOL);
@@ -233,7 +233,7 @@ public class ParserAST
 				//					accept(ARRAY);
 				//				if(currentTerminal.kind == NULL)
 				//					accept(NULL);
-				typeClass1 = parseType();
+				typeValueClass1 = parseType();
 				//accept(IDENTIFIER);
 				id = parseIdentifier();
 				accept(LEFTSQUARE);
@@ -254,7 +254,7 @@ public class ParserAST
 				//					return new FunctionDeclaration(typeClass1, id, params, block, retExp);
 				//				}
 				accept(RIGHTARROW);
-				return new FunctionDeclaration(typeClass1, id, params, block);
+				return new FunctionDeclaration(typeValueClass1, id, params, block);
 
 			default:
 				System.out.println("Declaration or statement expected.");
@@ -343,13 +343,13 @@ public class ParserAST
 				//					accept(BOOL);
 				//				if(currentTerminal.kind == ARRAY)
 				//					accept(ARRAY);
-				Type typeClass = parseType();
+				TypeValue typeValueClass = parseType();
 				accept(COMMA);
 				//accept(IDENTIFIER);
 				Identifier id = parseIdentifier();
 				accept(RIGHTSQUARE);
 				accept(SEMICOLON);
-				return new InputStatement(typeClass, id);
+				return new InputStatement(typeValueClass, id);
 
 			case RETURN:
 				accept(RETURN);
@@ -395,13 +395,13 @@ public class ParserAST
 					//						accept(BOOL);
 					//					if(currentTerminal.kind == ARRAY)
 					//						accept(ARRAY);
-					Type typeClass = parseType();
+					TypeValue typeValueClass = parseType();
 					accept(RIGHTARROW);
 					accept(LEFTSQUARE);
 					//					accept(INTEGERLITERAL);
 					IntegerLiteral lit = parseIntegerLiteral();
 					accept(RIGHTSQUARE);
-					return new ArrayExpression(id1, typeClass, lit);
+					return new ArrayExpression(id1, typeValueClass, lit);
 				}
 				if(currentTerminal.kind == LEFTSQUARE)
 				{

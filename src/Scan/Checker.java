@@ -133,14 +133,14 @@ public class Checker
 
   public Object visitBinaryExpression( BinaryExpression b, Object arg )
   {
-    Type t1 = (Type) b.operand1.visit( this, null );
-    Type t2 = (Type) b.operand2.visit( this, null );
+    TypeValue t1 = (TypeValue) b.operand1.visit(this, null);
+    TypeValue t2 = (TypeValue) b.operand2.visit(this, null);
     String operator = (String) b.operator.visit( this, null );
 
     if( operator.equals( "->" ) && t1.rvalueOnly )
       System.out.println( "Left-hand side of -> must be a variable" );
 
-    return new Type( true );
+    return new TypeValue(true );
   }
 
 
@@ -156,14 +156,14 @@ public class Checker
     else
       v.decl = (VariableDeclaration) d;
 
-    return new Type( false );
+    return new TypeValue(false );
   }
 
 
   public Object visitCallExpression( CallExpression c, Object arg )
   {
     String id = (String) c.name.visit( this, null );
-    Vector<Type> t = (Vector<Type>)( c.args.visit( this, null ) );
+    Vector<TypeValue> t = (Vector<TypeValue>)( c.args.visit(this, null) );
 
     Declaration d = idTable.retrieve( id );
     if( d == null )
@@ -178,7 +178,7 @@ public class Checker
         System.out.println( "Incorrect number of arguments in call to " + id );
     }
 
-    return new Type( true );
+    return new TypeValue(true );
   }
 
 
@@ -190,7 +190,7 @@ public class Checker
     if( !operator.equals( "+" ) && !operator.equals( "-" ) )
       System.out.println( "Only + or - is allowed as unary operator" );
 
-    return new Type( true );
+    return new TypeValue(true );
   }
 
 
@@ -198,18 +198,18 @@ public class Checker
   {
     i.literal.visit( this, true );
 
-    return new Type( true );
+    return new TypeValue(true );
   }
 
 
   public Object visitExpList( ExpList e, Object arg )
   {
-    Vector<Type> types = new Vector<Type>();
+    Vector<TypeValue> typeValues = new Vector<TypeValue>();
 
     for( Expression exp: e.exp )
-      types.add( (Type) exp.visit( this, null ) );
+      typeValues.add((TypeValue) exp.visit(this, null));
 
-    return types;
+    return typeValues;
   }
 
 

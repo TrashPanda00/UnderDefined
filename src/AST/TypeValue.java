@@ -1,9 +1,10 @@
 package AST;
 
-public class Type
+public class TypeValue extends AST
 {
 	public TypeName type;
 	public boolean rvalueOnly;
+
 	public enum TypeName {
 		INT,
 		ARR,
@@ -11,12 +12,19 @@ public class Type
 		NULL,
 		ERROR
 	}
-	public Type( boolean rvalueOnly )
+	public TypeValue(boolean rvalueOnly)
 	{
 		this.rvalueOnly = rvalueOnly;
 	}
-	public Type(TypeName name)
+
+	public TypeValue(TypeName name)
 	{
 		type = name;
 	}
+
+	public Object visit(Visitor v, Object arg)
+	{
+		return null;
+	}
+
 }
