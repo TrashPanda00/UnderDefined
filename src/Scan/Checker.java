@@ -201,6 +201,10 @@ public class Checker
     return new TypeValue(true );
   }
 
+  @Override public Object visitFuncExpression(FuncExpression f, Object arg)
+  {
+    return null;
+  }
 
   public Object visitExpList( ExpList e, Object arg )
   {

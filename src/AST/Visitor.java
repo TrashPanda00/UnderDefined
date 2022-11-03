@@ -39,6 +39,8 @@ public interface Visitor
 
   public Object visitIntLitExpression( IntLitExpression i, Object arg );
 
+  public Object visitFuncExpression(FuncExpression f,Object arg);
+
   public Object visitExpList( ExpList e, Object arg );
 
   public Object visitIdentifier( Identifier i, Object arg );
