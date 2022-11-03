@@ -30,4 +30,9 @@ public class ArrayExpression extends Expression
 		this.id1 = id1;
 		this.id2 = id2;
 	}
+	public Object visit( Visitor v, Object arg )
+	{
+		return v.visitArrayExpression( this, arg );
+	}
+
 }

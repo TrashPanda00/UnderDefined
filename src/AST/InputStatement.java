@@ -19,4 +19,8 @@ public class InputStatement
 		this.idf = idf;
 		this.typeClass = typeClass;
 	}
+	public Object visit( Visitor v, Object arg )
+	{
+		return v.visitInputStatement( this, arg );
+	}
 }

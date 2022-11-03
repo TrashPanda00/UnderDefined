@@ -2,8 +2,8 @@ package AST;
 
 public class TypeClass extends AST
 {
-	public TypeName type;
-
+	TypeName type;
+	public boolean rvalueOnly;
 	public enum TypeName {
 		INT,
 		ARR,
@@ -11,7 +11,10 @@ public class TypeClass extends AST
 		NULL,
 		ERROR
 	}
-
+	public TypeClass( boolean rvalueOnly )
+	{
+		this.rvalueOnly = rvalueOnly;
+	}
 	public TypeClass(TypeName name)
 	{
 		type = name;

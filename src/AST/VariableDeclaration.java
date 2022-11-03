@@ -40,6 +40,10 @@ public class VariableDeclaration
 		this.id = id;
 		this.stat = stat;
 	}
+	public Object visit( Visitor v, Object arg )
+	{
+		return v.visitVariableDeclaration( this, arg );
+	}
 
 
 }

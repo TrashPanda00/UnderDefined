@@ -17,4 +17,8 @@ public class PrintStatement
 	{
 		this.exp = exp;
 	}
+	public Object visit( Visitor v, Object arg )
+	{
+		return v.visitPrintStatement( this, arg );
+	}
 }
