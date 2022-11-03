@@ -53,11 +53,13 @@ public class ASTViewer
 		} else if( ast instanceof VariableDeclaration ) {
 			node.setUserObject( "VariableDeclaration" );
 			node.add( createTree( ((VariableDeclaration)ast).id ) );
-		} else if( ast instanceof TypeClass) {
-			node.setUserObject( "TypeClass" );
-			node.add( createTree( ((TypeClass)ast)) );
+		}
+//		else if( ast instanceof Type) {
+//			node.setUserObject( "TypeClass" );
+//			node.add( createTree( ((Type)ast)) );
 
-		} else if( ast instanceof FunctionDeclaration ) {
+		//}
+		else if( ast instanceof FunctionDeclaration ) {
 			node.setUserObject( "FunctionDeclaration" );
 			node.add( createTree( ((FunctionDeclaration)ast).name ) );
 			node.add( createTree( ((FunctionDeclaration)ast).params ) );
