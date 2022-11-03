@@ -19,6 +19,9 @@ public class ASTViewer
 		
 		DefaultMutableTreeNode root = createTree( ast );
 		JTree tree = new JTree( root );
+		for (int i = 0; i < tree.getRowCount(); i++) {
+			tree.expandRow(i);
+		}
 		DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
 		renderer.setFont( NODE_FONT );
 		tree.setCellRenderer( renderer );
