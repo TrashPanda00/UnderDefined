@@ -13,6 +13,8 @@ public class InputStatement
 {
 	public Identifier idf;
 	public Type typeClass;
+	public Expression exp;
+
 
 	public InputStatement(Type typeClass, Identifier idf)
 	{

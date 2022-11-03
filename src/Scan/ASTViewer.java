@@ -37,8 +37,8 @@ public class ASTViewer
 	
 	private DefaultMutableTreeNode createTree( AST ast )
 	{
-		DefaultMutableTreeNode node = new DefaultMutableTreeNode( "*** WHAT??? ***" );
-		
+		DefaultMutableTreeNode node = new DefaultMutableTreeNode( "*** WHAT?? ***" );
+
 		if( ast == null )
 			node.setUserObject( "*** NULL ***" );
 		else if( ast instanceof Program) {

@@ -8,6 +8,8 @@
 package AST;
 
 
+import Scan.Address;
+
 public class VariableDeclaration
 	extends Declaration
 {
@@ -17,6 +19,7 @@ public class VariableDeclaration
 	public Identifier id;
 	public Statements stat;
 	public Statement statSingle;
+	public Address address;
 
 	public VariableDeclaration(Type typeClass1, Identifier id)
 	{

@@ -13,7 +13,16 @@ import java.util.*;
 
 public class ExpList
 	extends AST
+
+
 {
+	private int a ;
+
+	public void func(){
+		int a = 1;
+		this.a = a;
+	}
+
 	public Vector<Expression> exp = new Vector<Expression>();
 	public Object visit( Visitor v, Object arg )
 	{
