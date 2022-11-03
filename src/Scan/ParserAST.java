@@ -30,11 +30,8 @@ public class ParserAST
 	{
 		Declarations decs = new Declarations();
 		Statements stats = new Statements();
-		while(currentTerminal.kind != END)
-		{
-			parseDeclarations(decs);
-			parseStatements(stats);
-		}
+		parseDeclarations(decs);
+		parseStatements(stats);
 		return new Block(decs, stats);
 	}
 
@@ -42,11 +39,8 @@ public class ParserAST
 	{
 		Declarations decs = new Declarations();
 		Statements stats = new Statements();
-		while(!(currentTerminal.kind == RIGHTARROW || currentTerminal.kind == RETURN))
-		{
-			parseDeclarations(decs);
-			parseStatements(stats);
-		}
+		parseDeclarations(decs);
+		parseStatements(stats);
 		return new Block(decs, stats);
 	}
 
