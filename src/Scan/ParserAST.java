@@ -376,42 +376,23 @@ public class ParserAST
 		switch(currentTerminal.kind)
 		{
 			case IDENTIFIER:
-				Identifier id1 = parseIdentifier();
+				Identifier id = parseIdentifier();
 				if(currentTerminal.kind == LEFTARROW)
 				{
 					accept(LEFTARROW);
-
-					//					if(currentTerminal.kind == INT)
-					//						accept(INT);
-					//					if(currentTerminal.kind == BOOL)
-					//						accept(BOOL);
-					//					if(currentTerminal.kind == ARRAY)
-					//						accept(ARRAY);
 					TypeValue typeValueClass = parseType();
 					accept(RIGHTARROW);
 					accept(LEFTSQUARE);
-					//					accept(INTEGERLITERAL);
-					IntegerLiteral lit = parseIntegerLiteral();
+					Expression exp = parseExpression();
 					accept(RIGHTSQUARE);
-					return new ArrayExpression(id1, typeValueClass, lit);
+					return new ArrayExpression(id, typeValueClass, exp);
 				}
 				if(currentTerminal.kind == LEFTPARAN)
 				{
 					accept(LEFTPARAN);
-					if(currentTerminal.kind == INTEGERLITERAL)
-					//accept(INTEGERLITERAL);
-					{
-						IntegerLiteral lit2 = parseIntegerLiteral();
-						accept(RIGHTPARAN);
-						return new ArrayExpression(id1, lit2);
-					}
-					if(currentTerminal.kind == IDENTIFIER)
-					{
-						//accept(IDENTIFIER);
-						Identifier id2 = parseIdentifier();
-						accept(RIGHTPARAN);
-						return new ArrayExpression(id1, id2);
-					}
+					Expression exp = parseExpression();
+					accept(RIGHTPARAN);
+					return new ArrayExpression(id, exp);
 				}
 				if(currentTerminal.kind == LEFTSQUARE)
 				{
@@ -431,7 +412,7 @@ public class ParserAST
 						return new FuncExpression(id1, id2);
 					}
 				}
-				return new VarExpression(id1);
+				return new VarExpression(id);
 
 			case INTEGERLITERAL:
 				IntegerLiteral lit = parseIntegerLiteral();
