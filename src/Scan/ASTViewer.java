@@ -106,7 +106,14 @@ public class ASTViewer
 			node.add( createTree( ((ArrayExpression)ast).id2 ) );
 			node.add( createTree( ((ArrayExpression)ast).lit ) );
 			node.add( createTree( ((ArrayExpression)ast).typeValueClass));
-		} else if( ast instanceof IntLitExpression ) {
+		}
+		else if( ast instanceof FuncExpression) {
+			node.setUserObject( "FuncExpression" );
+			node.add( createTree( ((FuncExpression)ast).id1 ) );
+			node.add( createTree( ((FuncExpression)ast).exp ) );
+
+
+		}else if( ast instanceof IntLitExpression ) {
 			node.setUserObject( "IntLitExpression" );
 			node.add( createTree( ((IntLitExpression)ast).literal ) );
 		} else if( ast instanceof UnaryExpression ) {
