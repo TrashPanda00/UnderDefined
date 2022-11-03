@@ -4,7 +4,7 @@ public class ArrayExpression extends Expression
 {
 	public Identifier id1;
 	public Identifier id2;
-	public Type typeClass;
+	public TypeValue typeValueClass;
 	public IntegerLiteral lit;
 
 	public ArrayExpression(Identifier id1)
@@ -12,10 +12,10 @@ public class ArrayExpression extends Expression
 		this.id1 = id1;
 	}
 
-	public ArrayExpression(Identifier id1, Type typeClass, IntegerLiteral lit)
+	public ArrayExpression(Identifier id1, TypeValue typeValueClass, IntegerLiteral lit)
 	{
 		this.id1 = id1;
-		this.typeClass = typeClass;
+		this.typeValueClass = typeValueClass;
 		this.lit = lit;
 	}
 

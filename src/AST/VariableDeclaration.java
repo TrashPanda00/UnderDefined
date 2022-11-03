@@ -12,32 +12,32 @@ import Scan.Address;
 public class VariableDeclaration
 	extends Declaration
 {
-	public Type typeClass1;
-	public Type typeClass2;
+	public TypeValue typeValueClass1;
+	public TypeValue typeValueClass2;
 	public IntegerLiteral lit;
 	public Identifier id;
 	public Statements stat;
 	public Statement statSingle;
 	public Address address;
 
-	public VariableDeclaration(Type typeClass1, Identifier id)
+	public VariableDeclaration(TypeValue typeValueClass1, Identifier id)
 	{
-		this.typeClass1 = typeClass1;
-		this.typeClass2 = typeClass2;
+		this.typeValueClass1 = typeValueClass1;
+		this.typeValueClass2 = typeValueClass2;
 		this.id = id;
 	}
 
-	public VariableDeclaration(Type typeClass1, Identifier id, Statement stat)
+	public VariableDeclaration(TypeValue typeValueClass1, Identifier id, Statement stat)
 	{
-		this.typeClass1 = typeClass1;
+		this.typeValueClass1 = typeValueClass1;
 		this.id = id;
 		this.statSingle = stat;
 	}
 
-	public VariableDeclaration(Type typeClass1, Type typeClass2, IntegerLiteral lit, Identifier id, Statements stat)
+	public VariableDeclaration(TypeValue typeValueClass1, TypeValue typeValueClass2, IntegerLiteral lit, Identifier id, Statements stat)
 	{
-		this.typeClass1 = typeClass1;
-		this.typeClass2 = typeClass2;
+		this.typeValueClass1 = typeValueClass1;
+		this.typeValueClass2 = typeValueClass2;
 		this.lit = lit;
 		this.id = id;
 		this.stat = stat;

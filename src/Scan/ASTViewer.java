@@ -1,16 +1,16 @@
 
 package Scan;
 
-import java.awt.*;
-import AST.*;
+
+import AST.*;;
 import javax.swing.*;
 import javax.swing.tree.*;
-
+import java.awt.Font;
 
 public class ASTViewer
 	extends JFrame
 {
-	private static final Font NODE_FONT = new Font( "Verdana", Font.PLAIN, 24 );
+	private static final Font NODE_FONT = new Font("Verdana", Font.PLAIN, 24 );
 	
 	
 	public ASTViewer( AST ast)
@@ -55,19 +55,18 @@ public class ASTViewer
 				node.add( createTree( d ) );
 		} else if( ast instanceof VariableDeclaration ) {
 			node.setUserObject( "VariableDeclaration" );
-			node.add( createTree( ((VariableDeclaration)ast).id ) );
 		}
-//		else if( ast instanceof Type) {
-//			node.setUserObject( "TypeClass" );
-//			node.add( createTree( ((Type)ast)) );
+		else if( ast instanceof TypeValue) {
+			node.setUserObject( "Type " + ((TypeValue)ast).type );
 
-		//}
+		}
 		else if( ast instanceof FunctionDeclaration ) {
 			node.setUserObject( "FunctionDeclaration" );
 			node.add( createTree( ((FunctionDeclaration)ast).name ) );
 			node.add( createTree( ((FunctionDeclaration)ast).params ) );
 			node.add( createTree( ((FunctionDeclaration)ast).block ) );
 			node.add( createTree( ((FunctionDeclaration)ast).retExp ) );
+			node.add( createTree( ((FunctionDeclaration)ast).typeValueClass));
 		} else if( ast instanceof Statements ) {
 			node.setUserObject( "Statements" );
 			
@@ -85,6 +84,10 @@ public class ASTViewer
 			node.setUserObject( "WhileStatement" );
 			node.add( createTree( ((WhileStatement)ast).exp ) );
 			node.add( createTree( ((WhileStatement)ast).stats ) );
+		} else if( ast instanceof InputStatement ) {
+			node.setUserObject( "InputStatement" );
+			node.add( createTree( ((InputStatement)ast).idf ) );
+			node.add( createTree( ((InputStatement)ast).typeValueClass));
 		} else if( ast instanceof PrintStatement ) {
 			node.setUserObject( "PrintStatement" );
 			node.add( createTree( ((PrintStatement)ast).exp ) );
@@ -102,6 +105,7 @@ public class ASTViewer
 			node.add( createTree( ((ArrayExpression)ast).id1 ) );
 			node.add( createTree( ((ArrayExpression)ast).id2 ) );
 			node.add( createTree( ((ArrayExpression)ast).lit ) );
+			node.add( createTree( ((ArrayExpression)ast).typeValueClass));
 		} else if( ast instanceof IntLitExpression ) {
 			node.setUserObject( "IntLitExpression" );
 			node.add( createTree( ((IntLitExpression)ast).literal ) );
