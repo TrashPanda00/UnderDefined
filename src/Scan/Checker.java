@@ -121,7 +121,7 @@ public class Checker
   @Override public Object visitArrayExpression(ArrayExpression a,
       Object arg)
   {
-    
+
     return null;
   }
 
@@ -137,8 +137,8 @@ public class Checker
     Type t2 = (Type) b.operand2.visit( this, null );
     String operator = (String) b.operator.visit( this, null );
 
-    if( operator.equals( ":=" ) && t1.rvalueOnly )
-      System.out.println( "Left-hand side of := must be a variable" );
+    if( operator.equals( "->" ) && t1.rvalueOnly )
+      System.out.println( "Left-hand side of -> must be a variable" );
 
     return new Type( true );
   }
