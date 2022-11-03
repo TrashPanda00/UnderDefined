@@ -8,6 +8,7 @@
  
 package AST;
 
+import Scan.Address;
 
 public class FunctionDeclaration
 	extends Declaration
@@ -17,6 +18,7 @@ public class FunctionDeclaration
 	public Declarations params;
 	public Block block;
 	public Expression retExp;
+	public Address address;
 	
 	
 	public FunctionDeclaration(Type typeClass, Identifier name, Declarations params,
