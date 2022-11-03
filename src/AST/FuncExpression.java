@@ -3,20 +3,15 @@ package AST;
 public class FuncExpression extends Expression
 {
   public Identifier id1;
-  public Identifier id2;
-  public IntegerLiteral lit;
+  public Expression exp;
 
-  public FuncExpression(Identifier id1,Identifier id2)
+  public FuncExpression(Identifier id1,Expression exp)
   {
     this.id1 = id1;
-    this.id2 = id2;
+    this.exp = exp;
   }
 
-  public FuncExpression(Identifier id1, IntegerLiteral lit)
-  {
-    this.id1 = id1;
-    this.lit = lit;
-  }
+
 
 
   @Override public Object visit(Visitor v, Object arg)
