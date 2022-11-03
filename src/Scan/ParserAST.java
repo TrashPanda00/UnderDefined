@@ -47,6 +47,7 @@ public class ParserAST
 			parseDeclarations(decs);
 			parseStatements(stats);
 		}
+
 		return new Block(decs, stats);
 	}
 
@@ -253,6 +254,14 @@ public class ParserAST
 				//					accept(RIGHTARROW);
 				//					return new FunctionDeclaration(typeClass1, id, params, block, retExp);
 				//				}
+				if(currentTerminal.kind == RETURN)
+				{
+					accept(RETURN);
+					retExp = parseExpression();
+					accept(SEMICOLON);
+					accept(RIGHTARROW);
+					return new FunctionDeclaration(typeClass1, id, params, block, retExp);
+				}
 				accept(RIGHTARROW);
 				return new FunctionDeclaration(typeClass1, id, params, block);
 
