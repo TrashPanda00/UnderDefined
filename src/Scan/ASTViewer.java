@@ -55,7 +55,6 @@ public class ASTViewer
 				node.add( createTree( d ) );
 		} else if( ast instanceof VariableDeclaration ) {
 			node.setUserObject( "VariableDeclaration" );
-			node.add( createTree( ((VariableDeclaration)ast).id ) );
 		}
 		else if( ast instanceof TypeValue) {
 			node.setUserObject( "Type " + ((TypeValue)ast).type );
@@ -106,6 +105,7 @@ public class ASTViewer
 			node.add( createTree( ((ArrayExpression)ast).id1 ) );
 			node.add( createTree( ((ArrayExpression)ast).id2 ) );
 			node.add( createTree( ((ArrayExpression)ast).lit ) );
+			node.add( createTree( ((ArrayExpression)ast).typeValueClass));
 		} else if( ast instanceof IntLitExpression ) {
 			node.setUserObject( "IntLitExpression" );
 			node.add( createTree( ((IntLitExpression)ast).literal ) );

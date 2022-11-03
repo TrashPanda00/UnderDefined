@@ -35,15 +35,6 @@ public class ParserAST
 		return new Block(decs, stats);
 	}
 
-	private Block parseBlockFunction()
-	{
-		Declarations decs = new Declarations();
-		Statements stats = new Statements();
-		parseDeclarations(decs);
-		parseStatements(stats);
-		return new Block(decs, stats);
-	}
-
 	private Declarations parseDeclarations(Declarations decs)
 	{
 		while(currentTerminal.kind == INT || currentTerminal.kind == BOOL || currentTerminal.kind == ARRAY || currentTerminal.kind == DEFINE)
@@ -238,7 +229,7 @@ public class ParserAST
 				}
 				accept(RIGHTSQUARE);
 				accept(LEFTARROW);
-				block = parseBlockFunction();
+				block = parseBlock();
 				//				if(currentTerminal.kind == RETURN)
 				//				{
 				//					accept(RETURN);
@@ -253,7 +244,7 @@ public class ParserAST
 					retExp = parseExpression();
 					accept(SEMICOLON);
 					accept(RIGHTARROW);
-					return new FunctionDeclaration(typeClass1, id, params, block, retExp);
+					return new FunctionDeclaration(typeValueClass1, id, params, block, retExp);
 				}
 				accept(RIGHTARROW);
 				return new FunctionDeclaration(typeValueClass1, id, params, block);
@@ -357,7 +348,6 @@ public class ParserAST
 				accept(RETURN);
 				Expression retExp = parseExpression();
 				accept(SEMICOLON);
-				accept(RIGHTARROW);
 				return new ExpressionStatement(retExp);
 
 			default:
@@ -405,22 +395,40 @@ public class ParserAST
 					accept(RIGHTSQUARE);
 					return new ArrayExpression(id1, typeValueClass, lit);
 				}
-				if(currentTerminal.kind == LEFTSQUARE)
+				if(currentTerminal.kind == LEFTPARAN)
 				{
-					accept(LEFTSQUARE);
+					accept(LEFTPARAN);
 					if(currentTerminal.kind == INTEGERLITERAL)
 					//accept(INTEGERLITERAL);
 					{
 						IntegerLiteral lit2 = parseIntegerLiteral();
-						accept(RIGHTSQUARE);
+						accept(RIGHTPARAN);
 						return new ArrayExpression(id1, lit2);
 					}
 					if(currentTerminal.kind == IDENTIFIER)
 					{
 						//accept(IDENTIFIER);
 						Identifier id2 = parseIdentifier();
-						accept(RIGHTSQUARE);
+						accept(RIGHTPARAN);
 						return new ArrayExpression(id1, id2);
+					}
+				}
+				if(currentTerminal.kind == LEFTSQUARE)
+				{
+					accept(LEFTPARAN);
+					if(currentTerminal.kind == INTEGERLITERAL)
+					//accept(INTEGERLITERAL);
+					{
+						IntegerLiteral lit2 = parseIntegerLiteral();
+						accept(RIGHTSQUARE);
+						return new FuncExpression(id1, lit2);
+					}
+					if(currentTerminal.kind == IDENTIFIER)
+					{
+						//accept(IDENTIFIER);
+						Identifier id2 = parseIdentifier();
+						accept(RIGHTSQUARE);
+						return new FuncExpression(id1, id2);
 					}
 				}
 				return new VarExpression(id1);
