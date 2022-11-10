@@ -620,7 +620,7 @@ public class Interpreter {
     if (args.length == 1)
       objectName = args[0];
   	else
-      objectName = "obj.tam";
+      objectName = "C:\\Users\\bogda\\Desktop\\VIA\\SEM2\\Java\\UnderDefined\\src\\Scan\\example.tam";
 
     loadObjectProgram(objectName);
     if (CT != CB) {

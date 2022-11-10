@@ -134,7 +134,8 @@ public class Encoder
     f.params.visit( this, new Address( adr, -size ) );
 
     f.block.visit( this, new Address( adr, Machine.linkDataSize ) );
-    f.retExp.visit( this, new Boolean( true ) );
+    if(!f.typeValueClass.type.equals(TypeValue.TypeName.NULL))
+      f.retExp.visit( this, new Boolean( true ) );
 
     emit( Machine.RETURNop, 1, 0, size );
 
@@ -174,8 +175,8 @@ public class Encoder
     emit( Machine.JUMPop, 0, Machine.CBr, 0 );
 
     patch( jump1Adr, nextAdr );
-
-    i.elsePart.visit( this, null );
+    if(i.elsePart != null)
+      i.elsePart.visit( this, null );
 
     patch( jump2Adr, nextAdr );
 
@@ -218,6 +219,10 @@ public class Encoder
 
   @Override public Object visitPrintStatement(PrintStatement p, Object arg)
   {
+    p.exp.visit( this, new Boolean( true ) );
+
+    emit( Machine.CALLop, 0, Machine.PBr, Machine.putintDisplacement );
+    emit( Machine.CALLop, 0, Machine.PBr, Machine.puteolDisplacement );
     return null;
   }
   /*
@@ -240,7 +245,7 @@ public class Encoder
 
     String op = (String) b.operator.visit( this, null );
 
-    if( op.equals( ":=" ) ) {
+    if( op.equals( "->" ) ) {
       Address adr = (Address) b.operand1.visit( this, new Boolean( false ) );
       b.operand2.visit( this, new Boolean( true ) );
 

@@ -64,7 +64,8 @@ public class Checker
 
     f.params.visit( this, null );
     f.block.visit( this, null );
-    f.retExp.visit( this, null );
+    if(!f.typeValueClass.type.equals(TypeValue.TypeName.NULL))
+      f.retExp.visit( this, null );
 
     idTable.closeScope();
 
@@ -93,7 +94,8 @@ public class Checker
   {
     i.exp.visit( this, null );
     i.thenPart.visit( this, null );
-    i.elsePart.visit( this, null );
+    if(i.elsePart != null)
+      i.elsePart.visit( this, null );
 
     return null;
   }
@@ -121,6 +123,9 @@ public class Checker
   @Override public Object visitArrayExpression(ArrayExpression a,
       Object arg)
   {
+//    Identifier id = (Identifier) a.id.visit(this,null);
+//    Expression exp = (Expression) a.exp.visit(this,null);
+//    TypeValue typeValueClass = (TypeValue) a.typeValueClass.visit(this,null);
 
     return null;
   }

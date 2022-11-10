@@ -385,7 +385,7 @@ public class Disassembler {
     if (args.length == 1)
       objectName = args[0];
     else
-      objectName = "obj.tam";
+      objectName = "C:\\Users\\bogda\\Desktop\\Examples\\example.tam";
 
     loadObjectProgram(objectName);
     disassembleProgram();
