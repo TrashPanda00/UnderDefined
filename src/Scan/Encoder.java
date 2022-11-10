@@ -333,7 +333,7 @@ public class Encoder
     return null;
   }
 
-  public Object visitFuncExpression(FuncExpression f, Object arg)
+  @Override public Object visitFuncExpression(FuncExpression f, Object arg)
   {
     return null;
   }
