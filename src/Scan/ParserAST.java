@@ -304,14 +304,41 @@ public class ParserAST
 
 	private Expression parseExpression()
 	{
-		Expression res = parsePrimary();
-		while(currentTerminal.kind == OPERATOR)
+		Expression res = parseExpression1();
+		while(currentTerminal.isAssignOperator())
 		{
 			Operator op = parseOperator();
 			Expression tmp = parsePrimary();
 
 			res = new BinaryExpression(op, res, tmp);
 		}
+		return res;
+	}
+
+	private Expression parseExpression1()
+	{
+		Expression res = parseExpression2();
+		while( currentTerminal.isAddOperator() ) {
+			Operator op = parseOperator();
+			Expression tmp = parseExpression2();
+
+			res = new BinaryExpression( op, res, tmp );
+		}
+
+		return res;
+	}
+
+
+	private Expression parseExpression2()
+	{
+		Expression res = parsePrimary();
+		while( currentTerminal.isMulOperator() ) {
+			Operator op = parseOperator();
+			Expression tmp = parsePrimary();
+
+			res = new BinaryExpression( op, res, tmp );
+		}
+
 		return res;
 	}
 
