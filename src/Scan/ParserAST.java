@@ -144,12 +144,8 @@ public class ParserAST
 		{
 			case BOOL:
 			case INT:
-				//accept(INT);
 				typeValueClass1 = parseType();
 				id = parseIdentifier();
-				//accept(IDENTIFIER);
-				//				if(currentTerminal.kind == RIGHTSQUARE)
-				//					break;
 				if(currentTerminal.kind != SEMICOLON)
 					stat = parseOneStatement();
 				else
@@ -160,24 +156,19 @@ public class ParserAST
 					return new VariableDeclaration(typeValueClass1, id, stat);
 
 			case ARRAY:
-				//accept(ARRAY);
 				typeValueClass1 = parseType();
-				//accept(IDENTIFIER);
 				id = parseIdentifier();
 				accept(LEFTARROW);
 				if(currentTerminal.kind == INT)
-					//accept(INT);
 					typeValueClass2 = parseType();
 				else if(currentTerminal.kind == BOOL)
-					//accept(BOOL);
 					typeValueClass2 = parseType();
 				else
 					typeValueClass2 = new TypeValue(TypeValue.TypeName.ERROR);
 				accept(RIGHTARROW);
-				accept(LEFTSQUARE);
-				//accept(INTEGERLITERAL);
+				accept(LEFTPARAN);
 				lit = parseIntegerLiteral();
-				accept(RIGHTSQUARE);
+				accept(RIGHTPARAN);
 				Statements stat2 = new Statements();
 				if(currentTerminal.kind != SEMICOLON)
 				{
@@ -194,32 +185,9 @@ public class ParserAST
 				else
 					return new VariableDeclaration(typeValueClass1, typeValueClass2, lit, id, stat2);
 
-				//			case BOOL:
-				//				//accept(BOOL);
-				//				type1 = parseType();
-				//				//accept(IDENTIFIER);
-				//				id = parseIdentifier();
-				//				if(currentTerminal.kind != SEMICOLON)
-				//					stat = parseOneStatement();
-				//				else
-				//					accept(SEMICOLON);
-				//				if(stat == null)
-				//					return new VariableDeclaration(type1,id);
-				//				else
-				//					return new VariableDeclaration(type1, id, stat);
-
 			case DEFINE:
 				accept(DEFINE);
-				//				if(currentTerminal.kind == INT)
-				//					accept(INT);
-				//				if(currentTerminal.kind == BOOL)
-				//					accept(BOOL);
-				//				if(currentTerminal.kind == ARRAY)
-				//					accept(ARRAY);
-				//				if(currentTerminal.kind == NULL)
-				//					accept(NULL);
 				typeValueClass1 = parseType();
-				//accept(IDENTIFIER);
 				id = parseIdentifier();
 				accept(LEFTSQUARE);
 				Declarations params = null;
@@ -230,14 +198,6 @@ public class ParserAST
 				accept(RIGHTSQUARE);
 				accept(LEFTARROW);
 				block = parseBlock();
-				//				if(currentTerminal.kind == RETURN)
-				//				{
-				//					accept(RETURN);
-				//					retExp = parseExpression();
-				//					accept(SEMICOLON);
-				//					accept(RIGHTARROW);
-				//					return new FunctionDeclaration(typeClass1, id, params, block, retExp);
-				//				}
 				if(currentTerminal.kind == RETURN)
 				{
 					accept(RETURN);
@@ -272,7 +232,7 @@ public class ParserAST
 
 	private Statements parseStatements(Statements stats)
 	{
-		while(currentTerminal.kind == IDENTIFIER || currentTerminal.kind == OPERATOR || currentTerminal.kind == INTEGERLITERAL || currentTerminal.kind == IF || currentTerminal.kind == WHILE || currentTerminal.kind == PRINT || currentTerminal.kind == INPUT || currentTerminal.kind == RETURN)
+		while(currentTerminal.kind == IDENTIFIER || currentTerminal.kind == OPERATOR || currentTerminal.kind == INTEGERLITERAL || currentTerminal.kind == IF || currentTerminal.kind == WHILE || currentTerminal.kind == PRINT || currentTerminal.kind == INPUT)
 			stats.stat.add(parseOneStatement());
 
 		return stats;
@@ -286,8 +246,7 @@ public class ParserAST
 			case INTEGERLITERAL:
 			case OPERATOR:
 				Expression exp = parseExpression();
-				accept(SEMICOLON); //!!!!!!!!!!!!!!!!!!!!!
-
+				accept(SEMICOLON);
 				return new ExpressionStatement(exp);
 			case IF:
 				accept(IF);
@@ -330,25 +289,12 @@ public class ParserAST
 			case INPUT:
 				accept(INPUT);
 				accept(LEFTSQUARE);
-				//				if(currentTerminal.kind == INT)
-				//					accept(INT);
-				//				if(currentTerminal.kind == BOOL)
-				//					accept(BOOL);
-				//				if(currentTerminal.kind == ARRAY)
-				//					accept(ARRAY);
 				TypeValue typeValueClass = parseType();
 				accept(COMMA);
-				//accept(IDENTIFIER);
 				Identifier id = parseIdentifier();
 				accept(RIGHTSQUARE);
 				accept(SEMICOLON);
 				return new InputStatement(typeValueClass, id);
-
-			case RETURN:
-				accept(RETURN);
-				Expression retExp = parseExpression();
-				accept(SEMICOLON);
-				return new ExpressionStatement(retExp);
 
 			default:
 				System.out.println("Error in statement");
@@ -366,8 +312,6 @@ public class ParserAST
 
 			res = new BinaryExpression(op, res, tmp);
 		}
-		//		if(currentTerminal.kind != COMMA && currentTerminal.kind != RIGHTPARAN && currentTerminal.kind != RIGHTSQUARE)
-		////			accept(SEMICOLON);
 		return res;
 	}
 
@@ -376,62 +320,32 @@ public class ParserAST
 		switch(currentTerminal.kind)
 		{
 			case IDENTIFIER:
-				Identifier id1 = parseIdentifier();
+				Identifier id = parseIdentifier();
 				if(currentTerminal.kind == LEFTARROW)
 				{
 					accept(LEFTARROW);
-
-					//					if(currentTerminal.kind == INT)
-					//						accept(INT);
-					//					if(currentTerminal.kind == BOOL)
-					//						accept(BOOL);
-					//					if(currentTerminal.kind == ARRAY)
-					//						accept(ARRAY);
 					TypeValue typeValueClass = parseType();
 					accept(RIGHTARROW);
 					accept(LEFTSQUARE);
-					//					accept(INTEGERLITERAL);
-					IntegerLiteral lit = parseIntegerLiteral();
+					Expression exp = parseExpression();
 					accept(RIGHTSQUARE);
-					return new ArrayExpression(id1, typeValueClass, lit);
+					return new ArrayExpression(id, typeValueClass, exp);
 				}
 				if(currentTerminal.kind == LEFTPARAN)
 				{
 					accept(LEFTPARAN);
-					if(currentTerminal.kind == INTEGERLITERAL)
-					//accept(INTEGERLITERAL);
-					{
-						IntegerLiteral lit2 = parseIntegerLiteral();
-						accept(RIGHTPARAN);
-						return new ArrayExpression(id1, lit2);
-					}
-					if(currentTerminal.kind == IDENTIFIER)
-					{
-						//accept(IDENTIFIER);
-						Identifier id2 = parseIdentifier();
-						accept(RIGHTPARAN);
-						return new ArrayExpression(id1, id2);
-					}
+					Expression exp = parseExpression();
+					accept(RIGHTPARAN);
+					return new ArrayExpression(id, exp);
 				}
 				if(currentTerminal.kind == LEFTSQUARE)
 				{
-					accept(LEFTPARAN);
-					if(currentTerminal.kind == INTEGERLITERAL)
-					//accept(INTEGERLITERAL);
-					{
-						IntegerLiteral lit2 = parseIntegerLiteral();
-						accept(RIGHTSQUARE);
-						return new FuncExpression(id1, lit2);
-					}
-					if(currentTerminal.kind == IDENTIFIER)
-					{
-						//accept(IDENTIFIER);
-						Identifier id2 = parseIdentifier();
-						accept(RIGHTSQUARE);
-						return new FuncExpression(id1, id2);
-					}
+					accept(LEFTSQUARE);
+					Expression exp = parseExpression();
+					accept(RIGHTSQUARE);
+					return new FuncExpression(id, exp);
 				}
-				return new VarExpression(id1);
+				return new VarExpression(id);
 
 			case INTEGERLITERAL:
 				IntegerLiteral lit = parseIntegerLiteral();
@@ -474,19 +388,6 @@ public class ParserAST
 			return new Value();
 		}
 	}
-
-	//	private ExpList parseExpressionList()
-	//	{
-	//		ExpList exps = new ExpList();
-	//
-	//		exps.exp.add( parseExpression() );
-	//		while( currentTerminal.kind == COMMA ) {
-	//			accept( COMMA );
-	//			exps.exp.add( parseExpression() );
-	//		}
-	//
-	//		return exps;
-	//	}
 
 	private Operator parseOperator()
 	{

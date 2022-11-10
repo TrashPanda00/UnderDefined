@@ -102,14 +102,13 @@ public class ASTViewer
 			node.add( createTree( ((CallExpression)ast).args ) );
 		} else if( ast instanceof ArrayExpression) {
 			node.setUserObject( "ArrayExpression" );
-			node.add( createTree( ((ArrayExpression)ast).id1 ) );
-			node.add( createTree( ((ArrayExpression)ast).id2 ) );
-			node.add( createTree( ((ArrayExpression)ast).lit ) );
+			node.add( createTree( ((ArrayExpression)ast).id ) );
+			node.add( createTree( ((ArrayExpression)ast).exp ) );
 			node.add( createTree( ((ArrayExpression)ast).typeValueClass));
 		}
 		else if( ast instanceof FuncExpression) {
 			node.setUserObject( "FuncExpression" );
-			node.add( createTree( ((FuncExpression)ast).id1 ) );
+			node.add( createTree( ((FuncExpression)ast).id ) );
 			node.add( createTree( ((FuncExpression)ast).exp ) );
 
 
