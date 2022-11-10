@@ -14,7 +14,7 @@ import javax.swing.*;
 
 public class Compiler
 {
-  private static final String EXAMPLES_DIR = "c:\\usr\\undervisning\\CMC\\IntLang\\examples";
+  private static final String EXAMPLES_DIR = "C:\\Users\\bogda\\Desktop\\Examples\\example.txt";
 
 
   public static void main( String args[] )

@@ -15,7 +15,8 @@ public class VarExpression
 	public Identifier name;
 
 	public VariableDeclaration decl;
-	public VarExpression( Identifier name )
+
+	public VarExpression( Identifier name)
 	{
 		this.name = name;
 	}
