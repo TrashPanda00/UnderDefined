@@ -93,6 +93,7 @@ public class Checker
   public Object visitIfStatement( IfStatement i, Object arg )
   {
     i.exp.visit( this, null );
+
     i.thenPart.visit( this, null );
     if(i.elsePart != null)
       i.elsePart.visit( this, null );

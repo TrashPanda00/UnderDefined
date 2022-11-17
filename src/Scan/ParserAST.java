@@ -31,7 +31,7 @@ public class ParserAST
 		Declarations decs = new Declarations();
 		Statements stats = new Statements();
 		parseDeclarations(decs);
-		parseStatements(stats);
+		parseStatements();
 		return new Block(decs, stats);
 	}
 
@@ -230,8 +230,9 @@ public class ParserAST
 		return list;
 	}
 
-	private Statements parseStatements(Statements stats)
+	private Statements parseStatements()
 	{
+		Statements stats = new Statements();
 		while(currentTerminal.kind == IDENTIFIER || currentTerminal.kind == OPERATOR || currentTerminal.kind == INTEGERLITERAL || currentTerminal.kind == IF || currentTerminal.kind == WHILE || currentTerminal.kind == PRINT || currentTerminal.kind == INPUT)
 			stats.stat.add(parseOneStatement());
 
@@ -254,7 +255,7 @@ public class ParserAST
 				Expression ifExp = parseExpression();
 				accept(RIGHTSQUARE);
 				accept(LEFTARROW);
-				Statements thenPart = parseStatements(new Statements());
+				Statements thenPart = parseStatements();
 				accept(RIGHTARROW);
 
 				Statements elsePart = null;
@@ -262,7 +263,7 @@ public class ParserAST
 				{
 					accept(ELSE);
 					accept(LEFTARROW);
-					elsePart = parseStatements(new Statements());
+					elsePart = parseStatements();
 					accept(RIGHTARROW);
 				}
 
@@ -274,7 +275,7 @@ public class ParserAST
 				Expression whileExp = parseExpression();
 				accept(RIGHTSQUARE);
 				accept(LEFTARROW);
-				Statements stats = parseStatements(new Statements());
+				Statements stats = parseStatements();
 				accept(RIGHTARROW);
 				return new WhileStatement(whileExp, stats);
 
