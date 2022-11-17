@@ -13,6 +13,7 @@ public class InputStatement
 {
 	public Identifier idf;
 	public TypeValue typeValueClass;
+	public VariableDeclaration decl;
 
 	public InputStatement(TypeValue typeValueClass, Identifier idf)
 	{

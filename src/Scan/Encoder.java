@@ -1,6 +1,7 @@
 package Scan;
 import AST.*;
 
+import javax.crypto.Mac;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 
@@ -214,6 +215,11 @@ public class Encoder
 
   @Override public Object visitInputStatement(InputStatement i, Object arg)
   {
+    Address adr = i.decl.address;
+    int register = displayRegister( currentLevel, adr.level );
+    emit( Machine.LOADAop, 1, register, adr.displacement );
+    emit(Machine.CALLop, 0, Machine.PBr, Machine.getintDisplacement);
+    emit(Machine.CALLop, 0, Machine.PBr, Machine.geteolDisplacement);
     return null;
   }
 
@@ -333,10 +339,10 @@ public class Encoder
     return null;
   }
 
-  @Override public Object visitFuncExpression(FuncExpression f, Object arg)
-  {
-    return null;
-  }
+//  @Override public Object visitFuncExpression(FuncExpression f, Object arg)
+//  {
+//    return null;
+//  }
 
   public Object visitExpList( ExpList e, Object arg )
   {

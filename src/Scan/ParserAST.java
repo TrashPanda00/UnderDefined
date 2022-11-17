@@ -230,6 +230,25 @@ public class ParserAST
 		return list;
 	}
 
+	private ExpList parseExpList()
+	{
+		ExpList list = new ExpList();
+		if(currentTerminal.kind == IDENTIFIER)
+			list.exp.add(new VarExpression(parseIdentifier()));
+		if(currentTerminal.kind == INTEGERLITERAL)
+			list.exp.add(new IntLitExpression(parseIntegerLiteral()));
+		while(currentTerminal.kind == COMMA)
+		{
+			accept(COMMA);
+			if(currentTerminal.kind == IDENTIFIER)
+				list.exp.add(new VarExpression(parseIdentifier()));
+			if(currentTerminal.kind == INTEGERLITERAL)
+				list.exp.add(new IntLitExpression(parseIntegerLiteral()));
+		}
+
+		return list;
+	}
+
 	private Statements parseStatements(Statements stats)
 	{
 		while(currentTerminal.kind == IDENTIFIER || currentTerminal.kind == OPERATOR || currentTerminal.kind == INTEGERLITERAL || currentTerminal.kind == IF || currentTerminal.kind == WHILE || currentTerminal.kind == PRINT || currentTerminal.kind == INPUT)
@@ -291,10 +310,10 @@ public class ParserAST
 				accept(LEFTSQUARE);
 				TypeValue typeValueClass = parseType();
 				accept(COMMA);
-				Identifier id = parseIdentifier();
+				Identifier idf = parseIdentifier();
 				accept(RIGHTSQUARE);
 				accept(SEMICOLON);
-				return new InputStatement(typeValueClass, id);
+				return new InputStatement(typeValueClass, idf);
 
 			default:
 				System.out.println("Error in statement");
@@ -381,9 +400,9 @@ public class ParserAST
 				if(currentTerminal.kind == LEFTSQUARE)
 				{
 					accept(LEFTSQUARE);
-					Expression exp = parseExpression();
+					ExpList exp = parseExpList();
 					accept(RIGHTSQUARE);
-					return new FuncExpression(id, exp);
+					return new CallExpression(id, exp);
 				}
 				return new VarExpression(id);
 

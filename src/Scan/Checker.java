@@ -132,8 +132,17 @@ public class Checker
 
   @Override public Object visitInputStatement(InputStatement s, Object arg)
   {
-    s.idf.visit(this,null);
-    return null;
+    String id = (String) s.idf.visit( this, null );
+
+    Declaration d = idTable.retrieve( id );
+    if( d == null )
+      System.out.println( id + " is not declared" );
+    else if( !( d instanceof VariableDeclaration ) )
+      System.out.println( id + " is not a variable" );
+    else
+      s.decl = (VariableDeclaration) d;
+
+    return new TypeValue(false );
   }
 
   public Object visitBinaryExpression( BinaryExpression b, Object arg )
@@ -169,6 +178,7 @@ public class Checker
   {
     String id = (String) c.name.visit( this, null );
     Vector<TypeValue> t = (Vector<TypeValue>)( c.args.visit(this, null) );
+    System.out.println( "CALLING FUNCTION!!!!" );
 
     Declaration d = idTable.retrieve( id );
     if( d == null )
@@ -206,10 +216,10 @@ public class Checker
     return new TypeValue(true );
   }
 
-  @Override public Object visitFuncExpression(FuncExpression f, Object arg)
-  {
-    return null;
-  }
+//  @Override public Object visitFuncExpression(CallExpression f, Object arg)
+  ////  {
+  ////    return null;
+  ////  }
 
   public Object visitExpList( ExpList e, Object arg )
   {

@@ -111,10 +111,11 @@ public class ASTViewer
 			node.add( createTree( ((ArrayExpression)ast).exp ) );
 			node.add( createTree( ((ArrayExpression)ast).typeValueClass));
 		}
-		else if( ast instanceof FuncExpression) {
-			node.setUserObject( "FuncExpression" );
-			node.add( createTree( ((FuncExpression)ast).id ) );
-			node.add( createTree( ((FuncExpression)ast).exp ) );
+		else if( ast instanceof CallExpression) {
+			node.setUserObject( "CallExpression" );
+			node.add( createTree( ((CallExpression)ast).name ) );
+			node.add( createTree( ((CallExpression)ast).args ) );
+			node.add( createTree( ((CallExpression)ast).decl ) );
 
 
 		}else if( ast instanceof IntLitExpression ) {
