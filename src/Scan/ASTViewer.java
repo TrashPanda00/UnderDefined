@@ -57,7 +57,7 @@ public class ASTViewer
 			node.setUserObject( "VariableDeclaration" );
 			node.add( createTree( ((VariableDeclaration)ast).lit ) );
 			node.add( createTree( ((VariableDeclaration)ast).statSingle ) );
-			node.add( createTree( ((VariableDeclaration)ast).id ) );
+			//node.add( createTree( ((VariableDeclaration)ast).id ) );
 			node.add( createTree( ((VariableDeclaration)ast).typeValueClass2 ) );
 			node.add( createTree( ((VariableDeclaration)ast).typeValueClass1 ) );
 		}

@@ -308,7 +308,7 @@ public class ParserAST
 		while(currentTerminal.isAssignOperator())
 		{
 			Operator op = parseOperator();
-			Expression tmp = parsePrimary();
+			Expression tmp = parseExpression1();
 
 			res = new BinaryExpression(op, res, tmp);
 		}
@@ -331,8 +331,21 @@ public class ParserAST
 
 	private Expression parseExpression2()
 	{
-		Expression res = parsePrimary();
+		Expression res = parseExpression3();
 		while( currentTerminal.isMulOperator() ) {
+			Operator op = parseOperator();
+			Expression tmp = parseExpression3();
+
+			res = new BinaryExpression( op, res, tmp );
+		}
+
+		return res;
+	}
+
+	private Expression parseExpression3()
+	{
+		Expression res = parsePrimary();
+		while( currentTerminal.isCompOperator() ) {
 			Operator op = parseOperator();
 			Expression tmp = parsePrimary();
 
