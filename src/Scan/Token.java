@@ -113,5 +113,8 @@ public class Token
 					"OV",
 					"UN",
 					"NOT",
+					"OVEQ",
+					"UNEQ",
+					"NOTEQ",
 			};
 }

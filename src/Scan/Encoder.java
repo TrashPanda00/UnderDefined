@@ -336,6 +336,18 @@ public class Encoder
     {
       emit( Machine.CALLop, 0, Machine.PBr, Machine.neDisplacement);
     }
+    else if(valueNeeded && op.equals("OVEQ"))
+    {
+      emit( Machine.CALLop, 0, Machine.PBr, Machine.geDisplacement);
+    }
+    else if(valueNeeded && op.equals("UNEQ"))
+    {
+      emit( Machine.CALLop, 0, Machine.PBr, Machine.leDisplacement);
+    }
+    else if(valueNeeded && op.equals("NOTEQ"))
+    {
+      emit( Machine.CALLop, 0, Machine.PBr, Machine.neDisplacement);
+    }
 
     return null;
   }
