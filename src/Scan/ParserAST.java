@@ -233,17 +233,13 @@ public class ParserAST
 	private ExpList parseExpList()
 	{
 		ExpList list = new ExpList();
-		if(currentTerminal.kind == IDENTIFIER)
-			list.exp.add(new VarExpression(parseIdentifier()));
-		if(currentTerminal.kind == INTEGERLITERAL)
-			list.exp.add(new IntLitExpression(parseIntegerLiteral()));
+		Expression exp = parseExpression();
+		list.exp.add(exp);
 		while(currentTerminal.kind == COMMA)
 		{
 			accept(COMMA);
-			if(currentTerminal.kind == IDENTIFIER)
-				list.exp.add(new VarExpression(parseIdentifier()));
-			if(currentTerminal.kind == INTEGERLITERAL)
-				list.exp.add(new IntLitExpression(parseIntegerLiteral()));
+			exp = parseExpression();
+			list.exp.add(exp);
 		}
 
 		return list;
